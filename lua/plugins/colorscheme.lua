@@ -1,9 +1,8 @@
 return {
-    'maxmx03/solarized.nvim',
-    lazy = false,
-    priority = 1000,
+    "ellisonleao/gruvbox.nvim",
+    priority = 1000, 
     config = function()
-        vim.o.background = 'dark'     -- or 'light'
-        vim.cmd.colorscheme 'solarized'
+        vim.o.background = "light" -- or "light" for light mode
+        vim.cmd([[colorscheme gruvbox]])
     end,
 }
