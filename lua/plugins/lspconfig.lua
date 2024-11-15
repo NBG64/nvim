@@ -24,6 +24,24 @@ return{
             lspconfig.clangd.setup({
                 capabilities = capabilities
             })
+            lspconfig.bashls.setup({
+                capabilities = capabilities
+            })
+            lspconfig.ts_ls.setup({
+                capabilities = capabilities
+            })
+            lspconfig.gopls.setup({
+                capabilities = capabilities
+            })
+            lspconfig.html.setup({
+                capabilities = capabilities
+            })
+            lspconfig.cssls.setup({
+                capabilities = capabilities
+            })
+            lspconfig.tailwindcss.setup({
+                capabilities = capabilities
+            })
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
             vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, {})
             vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
