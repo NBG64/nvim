@@ -32,7 +32,8 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 -- Safely execute immediately
 now(function()
   vim.o.termguicolors = true
-  vim.cmd('colorscheme minicyan')
+  vim.cmd('colorscheme minicyan' )
+  --vim.o.background ='light'
 end)
 now(function()
   require('mini.notify').setup()
