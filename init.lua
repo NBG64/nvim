@@ -50,6 +50,55 @@ now(function() require('mini.indentscope').setup() end)
 now(function() require('mini.move').setup() end)
 now(function() require('mini.pairs').setup() end)
 now(function() require('mini.visits').setup() end)
+now(function() require('mini.completion').setup() end)
 -- Safely execute later
 --later(function() require('mini.surround').setup() end)
 
+--external plugins
+local add = MiniDeps.add
+add('williamboman/mason.nvim')
+require('mason').setup()
+add('williambowman/mason-lspconfig.nvim')
+require('mason-lspconfig').setup({
+    ensure_installed = {'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'pylsp'},
+    automatic_installation = false
+})
+add('neovim/nvim-lspconfig')
+local custom_on_attach = function(client, buf_id)
+    -- Set up 'mini.completion' LSP part of completion
+    vim.bo[buf_id].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
+    -- Mappings are created globally with `<Leader>l` prefix (for simplicity)
+end
+
+local lspconfig = require('lspconfig')
+  lspconfig.clangd.setup({on_attach = custom_on_attach})
+  lspconfig.rust_analyzer.setup({on_attach = custom_on_attach})
+  lspconfig.gopls.setup({on_attach = custom_on_attach})
+  lspconfig.pylsp.setup({on_attach = custom_on_attach})
+  lspconfig.lua_ls.setup {
+    on_attach = custom_on_attach,
+    settings = {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using
+            -- (most likely LuaJIT in the case of Neovim)
+            version = 'LuaJIT',
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = {
+              'vim',
+              'require'
+            },
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+          -- Do not send telemetry data containing a randomized but unique identifier
+          telemetry = {
+            enable = false,
+          },
+        },
+      },
+    }
