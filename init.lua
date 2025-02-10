@@ -58,9 +58,9 @@ now(function() require('mini.completion').setup() end)
 local add = MiniDeps.add
 add('williamboman/mason.nvim')
 require('mason').setup()
-add('williambowman/mason-lspconfig.nvim')
+add('williamboman/mason-lspconfig.nvim')
 require('mason-lspconfig').setup({
-    ensure_installed = {'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'pylsp'},
+    ensure_installed = {'lua_ls', 'clangd', 'rust_analyzer'},
     automatic_installation = false
 })
 add('neovim/nvim-lspconfig')
@@ -73,8 +73,8 @@ end
 local lspconfig = require('lspconfig')
   lspconfig.clangd.setup({on_attach = custom_on_attach})
   lspconfig.rust_analyzer.setup({on_attach = custom_on_attach})
-  lspconfig.gopls.setup({on_attach = custom_on_attach})
-  lspconfig.pylsp.setup({on_attach = custom_on_attach})
+  --lspconfig.gopls.setup({on_attach = custom_on_attach})
+  --lspconfig.pylsp.setup({on_attach = custom_on_attach})
   lspconfig.lua_ls.setup {
     on_attach = custom_on_attach,
     settings = {
