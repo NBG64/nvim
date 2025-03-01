@@ -8,10 +8,6 @@ vim.opt.relativenumber = true
 vim.opt.signcolumn = "number"
 vim.g.mapleader= " "
 
-vim.keymap.set('n', '<c-k>', ':wincmd k<CR>')
-vim.keymap.set('n', '<c-j>', ':wincmd j<CR>')
-vim.keymap.set('n', '<c-h>', ':wincmd h<CR>')
-vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
 local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
 if not vim.loop.fs_stat(mini_path) then
@@ -60,7 +56,7 @@ add('williamboman/mason.nvim')
 require('mason').setup()
 add('williambowman/mason-lspconfig.nvim')
 require('mason-lspconfig').setup({
-    ensure_installed = {'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'pylsp'},
+    ensure_installed = {'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'pyright'},
     automatic_installation = false
 })
 add('neovim/nvim-lspconfig')
@@ -74,7 +70,7 @@ local lspconfig = require('lspconfig')
   lspconfig.clangd.setup({on_attach = custom_on_attach})
   lspconfig.rust_analyzer.setup({on_attach = custom_on_attach})
   lspconfig.gopls.setup({on_attach = custom_on_attach})
-  lspconfig.pylsp.setup({on_attach = custom_on_attach})
+  lspconfig.pyright.setup({on_attach = custom_on_attach})
   lspconfig.lua_ls.setup {
     on_attach = custom_on_attach,
     settings = {
@@ -102,3 +98,9 @@ local lspconfig = require('lspconfig')
         },
       },
     }
+
+--keymaps
+vim.keymap.set("n", "<Leader>ff", MiniPick.builtin.files)
+vim.keymap.set("n", "<Leader>fg", MiniPick.builtin.grep_live)
+vim.keymap.set("n", "<Leader>fb", MiniPick.builtin.buffers)
+
