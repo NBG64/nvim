@@ -54,7 +54,7 @@ now(function() require('mini.completion').setup() end)
 local add = MiniDeps.add
 add('williamboman/mason.nvim')
 require('mason').setup()
-add('williambowman/mason-lspconfig.nvim')
+add('williamboman/mason-lspconfig.nvim')
 require('mason-lspconfig').setup({
     ensure_installed = {'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'pyright'},
     automatic_installation = false
