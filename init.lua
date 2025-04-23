@@ -3,10 +3,15 @@ vim.cmd("set expandtab")
 vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=4")
+vim.o.colorcolumn = "80,120"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "number"
 vim.g.mapleader= " "
+vim.diagnostic.config({
+    signs = true,
+    virtual_text = true,
+})
 
 local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
@@ -23,56 +28,42 @@ require('mini.deps').setup({ path = { package = path_package } })
 
 -- Use 'mini.deps'. `now()` and `later()` are helpers for a safe two-stage
 -- startup and are optional.
-local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+local add, now = MiniDeps.add, MiniDeps.now
 
 -- Safely execute immediately
 now(function()
   vim.o.termguicolors = true
-  vim.cmd('colorscheme minicyan' )
+  vim.cmd('colorscheme minischeme') --vim.cmd('colorscheme minicyan')
   --vim.o.background ='light'
 end)
 now(function()
   require('mini.notify').setup()
   vim.notify = require('mini.notify').make_notify()
 end)
-now(function() require('mini.icons').setup({style = 'ascii'}) end)
-now(function() require('mini.tabline').setup() end)
 now(function() require('mini.statusline').setup() end)
-now(function() require('mini.bracketed').setup() end)
 now(function() require('mini.comment').setup() end)
 now(function() require('mini.pick').setup() end)
 now(function() require('mini.indentscope').setup() end)
-now(function() require('mini.move').setup() end)
 now(function() require('mini.pairs').setup() end)
 now(function() require('mini.completion').setup() end)
---now(function() require('mini.visits').setup() end)
---now(function() require('mini.files').setup() end)
--- Safely execute later
---later(function() require('mini.surround').setup() end)
+now(function() require('mini.sessions').setup({
+    file='',
+}) end)
 
 --external plugins
-local add = MiniDeps.add
 add('williamboman/mason.nvim')
 require('mason').setup()
+
 add('williamboman/mason-lspconfig.nvim')
 require('mason-lspconfig').setup({
     ensure_installed = {'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'pyright'},
     automatic_installation = false
-})
-add('neovim/nvim-lspconfig')
-local custom_on_attach = function(client, buf_id)
-    -- Set up 'mini.completion' LSP part of completion
-    vim.bo[buf_id].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
-    -- Mappings are created globally with `<Leader>l` prefix (for simplicity)
-end
 
-local lspconfig = require('lspconfig')
-  lspconfig.clangd.setup({on_attach = custom_on_attach})
-  lspconfig.rust_analyzer.setup({on_attach = custom_on_attach})
-  lspconfig.gopls.setup({on_attach = custom_on_attach})
-  lspconfig.pyright.setup({on_attach = custom_on_attach})
-  lspconfig.lua_ls.setup {
-    on_attach = custom_on_attach,
+})
+
+add('neovim/nvim-lspconfig')
+vim.lsp.enable({'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'pyright'})
+vim.lsp.config('lua_ls', {
     settings = {
         Lua = {
           runtime = {
@@ -96,11 +87,11 @@ local lspconfig = require('lspconfig')
             enable = false,
           },
         },
-      },
-    }
+    },
+})
 
 --keymaps
+--Mini Maps
 vim.keymap.set("n", "<Leader>ff", MiniPick.builtin.files)
 vim.keymap.set("n", "<Leader>fg", MiniPick.builtin.grep_live)
 vim.keymap.set("n", "<Leader>fb", MiniPick.builtin.buffers)
-
