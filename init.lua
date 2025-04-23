@@ -46,6 +46,7 @@ now(function() require('mini.pick').setup() end)
 now(function() require('mini.indentscope').setup() end)
 now(function() require('mini.pairs').setup() end)
 now(function() require('mini.completion').setup() end)
+now(function() require('mini.sessions').setup() end)
 
 --external plugins
 add('williamboman/mason.nvim')
@@ -92,3 +93,4 @@ vim.lsp.config('lua_ls', {
 vim.keymap.set("n", "<Leader>ff", MiniPick.builtin.files)
 vim.keymap.set("n", "<Leader>fg", MiniPick.builtin.grep_live)
 vim.keymap.set("n", "<Leader>fb", MiniPick.builtin.buffers)
+vim.keymap.set("n", "<Leader>ls", MiniSessions.select)
