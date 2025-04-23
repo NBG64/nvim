@@ -46,9 +46,6 @@ now(function() require('mini.pick').setup() end)
 now(function() require('mini.indentscope').setup() end)
 now(function() require('mini.pairs').setup() end)
 now(function() require('mini.completion').setup() end)
-now(function() require('mini.sessions').setup({
-    file='',
-}) end)
 
 --external plugins
 add('williamboman/mason.nvim')
