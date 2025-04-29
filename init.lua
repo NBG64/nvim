@@ -94,3 +94,12 @@ vim.keymap.set("n", "<Leader>ff", MiniPick.builtin.files)
 vim.keymap.set("n", "<Leader>fg", MiniPick.builtin.grep_live)
 vim.keymap.set("n", "<Leader>fb", MiniPick.builtin.buffers)
 vim.keymap.set("n", "<Leader>ls", MiniSessions.select)
+
+--Lsp Maps
+vim.keymap.set("n", "<Leader>gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "<Leader>gD", vim.lsp.buf.declaration)
+vim.keymap.set("n", "<Leader>gi", vim.lsp.buf.implementation)
+vim.keymap.set("n", "<Leader>gr", vim.lsp.buf.references)
+
+--Other
+vim.keymap.set("n", "<Leader>cb", ":bufdo bwipeout<CR>")
