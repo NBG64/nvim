@@ -17,7 +17,7 @@ local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
 if not vim.loop.fs_stat(mini_path) then
   vim.cmd('echo "Installing `mini.nvim`" | redraw')
-  local clone_cmd = { 'git', 'clone', '--filter=blob:none', 'https://github.com/echasnovski/mini.nvim', mini_path }
+  local clone_cmd = { 'git', 'clone', '--filter=blob:none', 'https://github.com/nvim-mini/mini.nvim', mini_path }
   vim.fn.system(clone_cmd)
   vim.cmd('packadd mini.nvim | helptags ALL')
   vim.cmd('echo "Installed `mini.nvim`" | redraw')
@@ -34,7 +34,7 @@ local add, now = MiniDeps.add, MiniDeps.now
 now(function()
   vim.o.termguicolors = true
   vim.cmd('colorscheme minischeme') --vim.cmd('colorscheme minicyan')
-  --vim.o.background ='light'
+  vim.o.background ='light'
 end)
 now(function()
   require('mini.notify').setup()
@@ -61,32 +61,6 @@ require('mason-lspconfig').setup({
 
 add('neovim/nvim-lspconfig')
 vim.lsp.enable({'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'pyright'})
-vim.lsp.config('lua_ls', {
-    settings = {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using
-            -- (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-          },
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = {
-              'vim',
-              'require'
-            },
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-          },
-          -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = {
-            enable = false,
-          },
-        },
-    },
-})
 
 --keymaps
 --Mini Maps
