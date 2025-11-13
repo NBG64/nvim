@@ -3,6 +3,7 @@ vim.cmd("set expandtab")
 vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=4")
+
 --vim.o.colorcolumn = "80,120"
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -16,51 +17,63 @@ vim.diagnostic.config({
 local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
 if not vim.loop.fs_stat(mini_path) then
-  vim.cmd('echo "Installing `mini.nvim`" | redraw')
+  vim.cmd('echo "Installing mini.nvim" | redraw')
   local clone_cmd = { 'git', 'clone', '--filter=blob:none', 'https://github.com/nvim-mini/mini.nvim', mini_path }
   vim.fn.system(clone_cmd)
   vim.cmd('packadd mini.nvim | helptags ALL')
-  vim.cmd('echo "Installed `mini.nvim`" | redraw')
+  vim.cmd('echo "Installed mini.nvim" | redraw')
 end
 
 -- Set up 'mini.deps' (customize to your liking)
 require('mini.deps').setup({ path = { package = path_package } })
 
--- Use 'mini.deps'. `now()` and `later()` are helpers for a safe two-stage
+-- Use 'mini.deps'. now() and later() are helpers for a safe two-stage
 -- startup and are optional.
 local add, now = MiniDeps.add, MiniDeps.now
 
 -- Safely execute immediately
 now(function()
   vim.o.termguicolors = true
-  vim.cmd('colorscheme minischeme') --vim.cmd('colorscheme minicyan')
-  vim.o.background ='light'
+  --vim.cmd('colorscheme minischeme')
+  --vim.cmd('colorscheme minicyan')
+  --vim.cmd('colorscheme miniwinter')
+  --vim.cmd('colorscheme minispring')
+  --vim.cmd('colorscheme minisummer')
+  --vim.cmd('colorscheme miniautumn')
+  --vim.cmd('colorscheme randomhue')
+  --vim.o.background ='light'
 end)
 now(function()
   require('mini.notify').setup()
   vim.notify = require('mini.notify').make_notify()
 end)
-now(function() require('mini.statusline').setup() end)
+now(function() require('mini.statusline').setup({use_icons= false}) end)
 now(function() require('mini.comment').setup() end)
 now(function() require('mini.pick').setup() end)
 now(function() require('mini.indentscope').setup() end)
 now(function() require('mini.pairs').setup() end)
 now(function() require('mini.completion').setup() end)
 now(function() require('mini.sessions').setup() end)
-
+now(function() require('mini.hues').setup({background='#fcfcfc', foreground='#36454F', saturation= 'mediumhigh'}) end)
 --external plugins
+
 add('williamboman/mason.nvim')
 require('mason').setup()
 
 add('williamboman/mason-lspconfig.nvim')
 require('mason-lspconfig').setup({
-    ensure_installed = {'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'pyright'},
+    ensure_installed = {'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'pyright', 'zls'},
     automatic_installation = false
-
 })
-
 add('neovim/nvim-lspconfig')
-vim.lsp.enable({'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'pyright'})
+vim.lsp.enable({'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'pyright', 'zls'})
+
+add('nvim-orgmode/orgmode')
+require('orgmode').setup({
+    org_agenda_files = '~/orgfiles/**/*',
+    org_default_notes_file = '~/orgfiles/refile.org',
+    org_startup_folded = 'showeverything'
+})
 
 --keymaps
 --Mini Maps
@@ -77,3 +90,6 @@ vim.keymap.set("n", "<Leader>gr", vim.lsp.buf.references)
 
 --Other
 vim.keymap.set("n", "<Leader>cb", ":bufdo bwipeout<CR>")
+vim.keymap.set("n", "<Leader>tt", ":term<CR>")
+vim.api.nvim_set_keymap('t', '<ESC>', [[<C-\><C-n>]], { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>d', ':lua vim.diagnostic.open_float()<CR>',{ noremap = true, silent = true })
