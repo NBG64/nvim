@@ -1,0 +1,72 @@
+{
+  "plugins": {
+    "conform.nvim": {
+      "rev": "086a40d",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "direnv.nvim": {
+      "rev": "9e58bb5",
+      "src": "https://github.com/NotAShelf/direnv.nvim"
+    },
+    "mason-lspconfig.nvim": {
+      "rev": "a676ab7",
+      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
+    },
+    "mason.nvim": {
+      "rev": "44d1e90",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "mini.completion": {
+      "rev": "4f94caf",
+      "src": "https://github.com/nvim-mini/mini.completion"
+    },
+    "mini.indentscope": {
+      "rev": "065c771",
+      "src": "https://github.com/nvim-mini/mini.indentscope"
+    },
+    "mini.notify": {
+      "rev": "e506fb6",
+      "src": "https://github.com/nvim-mini/mini.notify"
+    },
+    "mini.pairs": {
+      "rev": "b7fde37",
+      "src": "https://github.com/nvim-mini/mini.pairs"
+    },
+    "mini.pick": {
+      "rev": "8521fe2",
+      "src": "https://github.com/nvim-mini/mini.pick"
+    },
+    "mini.sessions": {
+      "rev": "408477b",
+      "src": "https://github.com/nvim-mini/mini.sessions"
+    },
+    "mini.statusline": {
+      "rev": "8c3829d",
+      "src": "https://github.com/nvim-mini/mini.statusline"
+    },
+    "mini.surround": {
+      "rev": "d205d17",
+      "src": "https://github.com/nvim-mini/mini.surround"
+    },
+    "mini.tabline": {
+      "rev": "d03f10b",
+      "src": "https://github.com/nvim-mini/mini.tabline"
+    },
+    "neovim": {
+      "rev": "cf2a288",
+      "src": "https://github.com/rose-pine/neovim"
+    },
+    "nvim-lint": {
+      "rev": "606b823",
+      "src": "https://github.com/mfussenegger/nvim-lint"
+    },
+    "nvim-lspconfig": {
+      "rev": "4d0724b",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "vim-fugitive": {
+      "rev": "3b753cf",
+      "src": "https://github.com/tpope/vim-fugitive"
+    }
+  }
+}
