@@ -56,7 +56,7 @@ require("direnv").setup({
 })
 require('mason').setup()
 require('mason-lspconfig').setup({
-    ensure_installed = {'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'ansiblels', 'powershell_es', 'zls', 'ols'},
+    ensure_installed = {'htmx', 'html', 'cssls', 'templ', 'ruff', 'ty', 'lua_ls', 'gopls', 'clangd', 'rust_analyzer', 'ansiblels', 'powershell_es', 'zls', 'ols'},
     automatic_installation = false,
     automatic_setup = false,
     automatic_enable = false,
@@ -93,11 +93,20 @@ vim.lsp.config('ruff', {
     }
   }
 })
-vim.lsp.enable({'htmx', 'templ', 'ruff', 'ty', 'gopls', 'clangd', 'rust_analyzer', 'ansiblels', 'powershell_es', 'zls', 'ols'})
+
+vim.lsp.enable({'html', 'cssls', 'tsgo', 'templ', 'ruff', 'ty', 'gopls', 'clangd', 'rust_analyzer', 'ansiblels', 'powershell_es', 'zls', 'ols'})
 
 require("conform").setup({
     formatters_by_ft = {
         go ={ "gofmt" },
+        zig={"zigfmt"},
+        c = { "clang_format" },
+        cpp = { "clang_format" },
+        odin={"odinfmt"}
+        rust={"rustfmt"},
+        html={"prettier"},
+        css={"prettier"},
+        js={"prettier"},
         python = {
           "ruff_fix",
           "ruff_format",
