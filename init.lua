@@ -102,7 +102,7 @@ require("conform").setup({
         zig={"zigfmt"},
         c = { "clang_format" },
         cpp = { "clang_format" },
-        odin={"odinfmt"}
+        odin={"odinfmt"},
         rust={"rustfmt"},
         html={"prettier"},
         css={"prettier"},
